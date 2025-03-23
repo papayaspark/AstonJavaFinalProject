@@ -4,57 +4,52 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.\n");
+    System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.\n");
 
-        boolean dataLoaded = false;
-        ArrayList<ThreeFieldedClass> data;
+    boolean dataLoaded = false;
+    ArrayList<ThreeMemberClass> data;
 
-        Scanner scanner = new Scanner(System.in);
-        String userInput = "";
+    Scanner scanner = new Scanner(System.in);
+    String userInput = "";
 
-        while (!userInput.equalsIgnoreCase("Q")) {
+    while (!userInput.equalsIgnoreCase("Q")) {
 
-            if (!dataLoaded) {
-                System.out.println("Отсутствуют загруженные данные");
-                // Загрузка данных
-            }
+      System.out.println(
+          "Выберите действие:\n"
+              + "1. Загрузка данных;\n"
+              + "2. Выбор способа сортировки;\n"
+              + "3. Сортировка данных;\n"
+              + "4. Поиск по данным;\n"
+              + "5. Запись данные в файл;\n"
+              + "Q. Выход.\n");
 
-            System.out.println("Выберите действие:");
-            System.out.println("1. Загрузка данных;");
-            System.out.println("2. Выбор способа сортировки;");
-            System.out.println("3. Сортировка данных;");
-            System.out.println("4. Поиск по данным;");
-            System.out.println("5. Записать данные в файл");
-            System.out.println("Q. Выход");
+      userInput = scanner.nextLine();
 
-            userInput = scanner.nextLine();
-
-            switch (userInput) {
-                case "1":
-                    System.out.println("Загрузка данных");
-                    dataLoaded = true;
-                    break;
-                case "2":
-                    System.out.println("Выбор способа сортировки");
-                    break;
-                case "3":
-                    System.out.println("Отсортированные данные");
-                    break;
-                case "4":
-                    System.out.println("Поиск по данным");
-                    break;
-                case "5":
-                    System.out.println("Запись в файл");
-                    break;
-                case "q":
-                case "Q":
-                    System.out.println("Выход");
-                    break;
-                default:
-                    System.out.println("Выбранного варианта нет в списке. Введите корректное значение");
-            }
-        }
+      switch (userInput) {
+        case "1":
+          dataLoaded = true;
+          break;
+        case "2":
+          System.out.println("Выбор способа сортировки");
+          break;
+        case "3":
+          System.out.println("Отсортированные данные");
+          break;
+        case "4":
+          System.out.println("Поиск по данным");
+          break;
+        case "5":
+          System.out.println("Запись в файл");
+          break;
+        case "q":
+        case "Q":
+          System.out.println("Выход");
+          break;
+        default:
+          System.out.println("Выбранного варианта нет в списке. Введите корректное значение");
+      }
     }
+  }
 }
