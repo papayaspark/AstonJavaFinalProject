@@ -1,18 +1,8 @@
 package org.astonjava.p1;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.regex.Pattern;
-
-/**
- * TODO: Реализовать класс Автобус (Номер, Модель, Пробег) из задания. Названия полей выберите сами.
- * Класс должен иметь конструктор по
- * умолчанию, который заполняет поля класса *валидными* случайными значениями.
- *
- * <p>Кроме того, подготовить два файла: <имя_класса>_valid.csv и <имя_класса>_invalid.csv. Положить
- * оба в папку src/main/resources. В первом файле 15-20 строк вроде "Номер, Модель, Пробег" (без
- * кавычек), все строки хорошие (валидные). Во втором файле - плохие строки, количество на ваше
- * усмотрение. Из этих файлов будут считываться данные в главном цикле.
- */
 
 public class Bus extends ThreeMemberClass {
 
@@ -33,9 +23,33 @@ public class Bus extends ThreeMemberClass {
     this.member3 = member3;
   }
 
+  public Bus() {
+    Random rand = new Random();
+    String[] models = {
+      "Buick Terraza",
+      "Chevrolet Express",
+      "Chevrolet Venture",
+      "Dodge Grand Caravan",
+      "Dodge Ram Van B350",
+      "Ford Econoline E150",
+      "Ford Transit Connect",
+      "GMC Safari",
+      "GMC Savana",
+      "Honda Odyssey",
+      "Mercedes-Benz Sprinter",
+      "Ram C/V Tradesman",
+      "Ram Promaster",
+      "Toyota Sienna",
+      "Volkswagen California"
+    };
+    this.member1 = rand.nextInt(9999);
+    this.member2 = models[rand.nextInt(models.length)];
+    this.member3 = rand.nextInt(999999);
+  }
+
   @Override
   public String toString() {
-    return "Bus{%s, %s, %s}".formatted(member1, member2, member3);
+    return "%s, %s, %s".formatted(member1, member2, member3);
   }
 
   @Override
@@ -77,10 +91,16 @@ public class Bus extends ThreeMemberClass {
   }
 
   // TODO: Убрать после тестов
-  public static void main(String[] args) {
-    Bus bus = new Bus(1375, "KurganAuto", 45180);
-    System.out.println(bus);
-    System.out.println(Bus.validateString("1287, Sports1343_eire, 897777"));
-    System.out.println(Bus.validateString("12kuy6.06, 9, 897777"));
-  }
+  //  public static void main(String[] args) {
+  //    Bus bus = new Bus(1375, "KurganAuto", 45180);
+  //    System.out.println(bus);
+  //    System.out.println(Bus.validateString("1287, Sports1343_eire, 897777"));
+  //    System.out.println(Bus.validateString("12kuy6.06, 9, 897777"));
+  //    Bus bus2 = new Bus();
+  //    System.out.println(bus2);
+  //    System.out.println("------");
+  //    for (int i = 0; i < 15; i++) {
+  //      System.out.println(new Bus());
+  //    }
+  //  }
 }
