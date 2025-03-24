@@ -16,6 +16,21 @@ package org.astonjava.p1;
  */
 
 public class Bus implements ThreeFieldedClass {
+        public Bus (int mileage, String model, String number){
+        this.mileage = mileage;
+        this.model = model;
+        this.number = number;
+    }
+    int mileage;
+    String model;
+    String number;
+/*@Override
+    public String toString(){
+        return "Probeg" + mileage;
+    }*/
+    public int getMileage(){
+        return mileage;
+    }
     @Override
     public boolean validateString(String inputString) {
         return false;
