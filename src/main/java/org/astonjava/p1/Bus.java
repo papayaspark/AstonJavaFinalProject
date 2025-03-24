@@ -23,6 +23,14 @@ public class Bus extends ThreeMemberClass {
     this.member3 = member3;
   }
 
+  // Не проверяет данные! Использовать только после validateString
+  public Bus(String validString) {
+    String[] members = validString.split(",");
+    member1 = Integer.parseInt(members[0].strip());
+    member2 = members[1].strip();
+    member3 = Integer.parseInt(members[2].strip());
+  }
+
   public Bus() {
     Random rand = new Random();
     String[] models = {
@@ -91,15 +99,19 @@ public class Bus extends ThreeMemberClass {
   }
 
   // TODO: Убрать после тестов
-//    public static void main(String[] args) {
-//      Bus bus = new Bus(1375, "KurganAuto", 45180);
-//      System.out.println(bus);
-//      System.out.println(Bus.validateString("1287, Sports1343_eire, 897777"));
-//      System.out.println(Bus.validateString("12kuy6.06, 9, 897777"));
-//      Bus bus2 = new Bus();
-//      System.out.println(bus2);
-//      System.out.println("------");
-//      for (int i = 0; i < 15; i++) {
-//        System.out.println(new Bus());
-//      }
+  public static void main(String[] args) {
+    Bus bus = new Bus(1375, "KurganAuto", 45180);
+    System.out.println(bus);
+    System.out.println(Bus.validateString("1287, Sports1343_eire, 897777"));
+    System.out.println(Bus.validateString("12kuy6.06, 9, 897777"));
+    Bus bus2 = new Bus();
+    System.out.println(bus2);
+    System.out.println("------");
+    for (int i = 0; i < 15; i++) {
+      System.out.println(new Bus());
+    }
+
+    System.out.println("------------------------");
+    System.out.println(new Bus("5167, Pantsu Maru Mie, 614577"));
+  }
 }
