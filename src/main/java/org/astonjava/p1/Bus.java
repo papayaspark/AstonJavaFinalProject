@@ -57,7 +57,7 @@ public class Bus extends ThreeMemberClass {
 
   @Override
   public String toString() {
-    return "%s, %s, %s".formatted(member1, member2, member3);
+    return "Bus {%s, %s, %s}".formatted(member1, member2, member3);
   }
 
   @Override
