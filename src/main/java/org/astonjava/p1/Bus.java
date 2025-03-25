@@ -8,10 +8,11 @@ public class Bus extends ThreeMemberClass {
 
   static {
     validationPattern = Pattern.compile("^\\d{1,4},[\\w\\s]+,\\s*\\d{1,6}$");
-    member1RuName = "Номер";
-    member2RuName = "Модель";
-    member3RuName = "Пробег";
   }
+
+  public static String member1RuName = "Номер";
+  public static String member2RuName = "Модель";
+  public static String member3RuName = "Пробег";
 
   Integer member1;
   String member2;
