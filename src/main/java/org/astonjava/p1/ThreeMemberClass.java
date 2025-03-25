@@ -7,9 +7,6 @@ import java.util.regex.Pattern;
 public abstract class ThreeMemberClass {
 
   public static Pattern validationPattern;
-  public static String member1RuName = "Поле 1";
-  public static String member2RuName = "Поле 2";
-  public static String member3RuName = "Поле 3";
 
   /* Проверяет, валидная ли строка или нет. */
   public static boolean validateString(String inputString) {
