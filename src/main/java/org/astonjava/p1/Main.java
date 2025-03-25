@@ -14,6 +14,8 @@ public class Main {
     boolean dataLoaded = false;
     CustomList<ThreeMemberClass> data = null;
 
+    String[] order;
+
     String userInput = "";
 
     while (!userInput.equalsIgnoreCase("Q")) {
@@ -33,23 +35,23 @@ public class Main {
         case "1":
           data = selectAndLoadData();
           break;
-        //        case "2":
-        //          System.out.println("Выбор способа сортировки");
-        //          break;
-        //        case "3":
-        //          System.out.println("Отсортированные данные");
-        //          break;
-        //        case "4":
-        //          System.out.println("Поиск по данным");
-        //          break;
-        //        case "5":
-        //          System.out.println("Запись в файл");
-        //          break;
+                  case "2":
+                    order = getSortingOrder(Bus.class);
+          System.out.println();
+                    break;
+          //        case "3":
+          //          System.out.println("Отсортированные данные");
+          //          break;
+          //        case "4":
+          //          System.out.println("Поиск по данным");
+          //          break;
+          //        case "5":
+          //          System.out.println("Запись в файл");
+          //          break;
       }
 
       printList(data);
       System.out.println("Выход");
-
     }
   }
 
@@ -86,6 +88,61 @@ public class Main {
     }
 
     return loaderMap.get(loaderOption).loadData(classMap.get(classOption));
+  }
+
+  // Выбирает порядок сортировки
+  public static String[] getSortingOrder(Class<? extends ThreeMemberClass> tmClass) {
+    try {
+      Map<String, String> memberMap =
+          Map.of(
+              "1",
+              (String) tmClass.getField("member1RuName").get(null),
+              "2",
+              (String) tmClass.getField("member2RuName").get(null),
+              "3",
+              (String) tmClass.getField("member3RuName").get(null),
+              "-1",
+              "-" + tmClass.getField("member1RuName").get(null),
+              "-2",
+              "-" + tmClass.getField("member2RuName").get(null),
+              "-3",
+              "-" + tmClass.getField("member3RuName").get(null));
+
+      System.out.println(
+          "Введите желаемый порядок сортировки\n"
+              + "Формат: <наиболее приоритетное>, <с обычным приоритетом>, <наименее приоритетное>',\n"
+              + "-<поле> для сортировки по этому полю в порядке убывания.\n"
+              + "1. "
+              + memberMap.get("1")
+              + "\n"
+              + "2. "
+              + memberMap.get("2")
+              + "\n"
+              + "3. "
+              + memberMap.get("3")
+              + "\n");
+
+      String first = getValidInputOption("Выберите наиболее приоритетное поле", Set.of("1", "-1", "2", "-2", "3", "-3"));
+      String second = getValidInputOption("Выберите поле с обычным приоритетом", Set.of("1", "-1", "2", "-2", "3", "-3"));
+      String third = getValidInputOption("Выберите наименее приоритетное поле", Set.of("1", "-1", "2", "-2", "3", "-3"));
+
+      System.out.printf("Выбранный порядок сортировки: [%s, %s, %s]\n", memberMap.get(first), memberMap.get(second), memberMap.get(third));
+
+      String[] result = new String[]{first, second, third};
+      System.out.println("RESULT: " + Arrays.toString(result));
+
+      return result;
+
+    } catch (Exception e) {
+      System.out.println("Ошибка в выборе порядка сортировки. Выбран порядок по умолчанию [1, 2, 3]");
+//      e.printStackTrace();
+      return new String[]{"1", "2", "3"};
+    }
+  }
+
+  public static String[] getSortingOrderHelper() {
+
+    return new String[0];
   }
 
   // Выводит приветствие и ждет выбора корректного значения
