@@ -60,7 +60,7 @@ public class ConsoleDataLoader implements DataLoaderInterface {
   public static void main(String[] args) {
     DataLoaderInterface loader = new ConsoleDataLoader();
 
-    CustomList<ThreeMemberClass> result = new CustomList<>();
+    CustomList<ThreeMemberClass> result;
 
     result = loader.loadData(Bus.class);
 
