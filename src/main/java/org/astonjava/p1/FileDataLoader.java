@@ -6,23 +6,22 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 // Загружает данные из файла
 public class FileDataLoader implements DataLoaderInterface {
 
-  String pathToFile;
-
-  FileDataLoader(String pathToFile) {
-    this.pathToFile = pathToFile;
-  }
-
   // Основной метод, выполняющий загрузку
   @Override
   public CustomList<ThreeMemberClass> loadData(Class<? extends ThreeMemberClass> tmclass) {
+
+    System.out.print("Введите путь к файлу: ");
+    String pathToFile = (new Scanner(System.in)).nextLine();
+
     CustomList<ThreeMemberClass> result = new CustomList<>();
+    int lines_processed = 0;
 
     Path path = Paths.get(pathToFile);
-    int lines_processed = 0;
 
     try {
       for (var s : Files.readAllLines(path)) {
@@ -53,8 +52,7 @@ public class FileDataLoader implements DataLoaderInterface {
       Class<? extends ThreeMemberClass> tmclass, String dataString) {
     try {
       Class<?>[] constructorArgs = new Class[] {String.class};
-      Constructor<? extends ThreeMemberClass> tmConstructor =
-          tmclass.getDeclaredConstructor(constructorArgs);
+      Constructor<? extends ThreeMemberClass> tmConstructor = tmclass.getDeclaredConstructor(constructorArgs);
       Method tmValidator = tmclass.getMethod("validateString", String.class);
       tmConstructor.newInstance("1, JOJO, 1"); // MAGIC STRING!!!
 
@@ -68,14 +66,13 @@ public class FileDataLoader implements DataLoaderInterface {
     return null;
   }
 
-  //  public static void main(String[] args) {
-  //        System.out.println("Result: " + checkAndCreate(Bus.class, "120hgfg6, Chevrolet Express,
-  // 58325"));
-  //    System.out.println("Result: " + checkAndCreate(Bus.class, "60, Buick Terraza,"));
-  //    FileDataLoader loader = new FileDataLoader("src/main/resources/bus_invalid.txt");
-  //    CustomList<ThreeMemberClass> data = loader.loadData(Bus.class);
-  //    for (var d : data) {
-  //      System.out.println(d);
-  //    }
-  //  }
+    public static void main(String[] args) {
+//      System.out.println("Result: " + checkAndCreate(Bus.class, "120hgfg6, Chevrolet Express, 58325"));
+//      System.out.println("Result: " + checkAndCreate(Bus.class, "60, Buick Terraza,"));
+      FileDataLoader loader = new FileDataLoader();
+      CustomList<ThreeMemberClass> data = loader.loadData(Bus.class);
+      for (var d : data) {
+        System.out.println(d);
+      }
+    }
 }
