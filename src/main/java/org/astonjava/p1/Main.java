@@ -1,8 +1,6 @@
 package org.astonjava.p1;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -14,13 +12,14 @@ public class Main {
     System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.\n");
 
     boolean dataLoaded = false;
-    ArrayList<ThreeMemberClass> data = null;
+    CustomList<ThreeMemberClass> data = null;
 
     String userInput = "";
 
     while (!userInput.equalsIgnoreCase("Q")) {
 
-      userInput = getValidInputOption(
+      userInput =
+          getValidInputOption(
               "Выберите действие:\n"
                   + "1. Загрузка данных;\n"
                   + "2. Выбор способа сортировки;\n"
@@ -30,14 +29,9 @@ public class Main {
                   + "Q. Выход.\n",
               Set.of("1", "2", "3", "4", "5", "Q"));
 
-      System.out.println("Input: " + userInput);
-      //
-      //
       switch (userInput) {
         case "1":
-          //
-          System.out.println("data=" + data);
-//          data = loadData();
+          data = selectAndLoadData();
           break;
         //        case "2":
         //          System.out.println("Выбор способа сортировки");
@@ -51,40 +45,48 @@ public class Main {
         //        case "5":
         //          System.out.println("Запись в файл");
         //          break;
-        case "q":
-        case "Q":
-          System.out.println("Выход");
-          break;
       }
+
+      printList(data);
+      System.out.println("Выход");
+
     }
   }
 
-//  static ArrayList<ThreeMemberClass> loadData() {
-//    Scanner scanner = new Scanner(System.in);
-//    String userInput = "";
-//    while (!userInput.equalsIgnoreCase("Q")) {
-//      userInput = getValidInputOption(
-//          "Выберите вариант загрузки данных:\n"
-//              + "1. В интерактивном режиме\n"
-//              + "2. Из файла\n"
-//              + "3. Заполнение случайными данными\n"
-//              + "Q. Выход\n", Set.of("1", "2", "3"));
-//      userInput = scanner.nextLine();
-//
-//      switch (userInput) {
-//        case "1":
-//          break;
-//        case "2":
-//          break;
-//        case "3":
-//          break;
-//        case "Q":
-//          return null;
-//      }
-//    }
-//
-//    return null;
-//  }
+  // Загружает данные с использованием паттерна Стратегия
+  static CustomList<ThreeMemberClass> selectAndLoadData() {
+    Map<String, Class<? extends ThreeMemberClass>> classMap =
+        Map.of("1", Bus.class, "2", User.class, "3", Student.class);
+    Map<String, DataLoaderInterface> loaderMap =
+        Map.of(
+            "1", new FileDataLoader(), "2", new ConsoleDataLoader(), "3", new RandomDataLoader());
+
+    Scanner scanner = new Scanner(System.in);
+    String classOption = "";
+    String loaderOption = "";
+    classOption =
+        getValidInputOption(
+            "Выберите класс:\n" + "1. Bus\n" + "2. User\n" + "3. Student\n" + "Q. Выход\n",
+            Set.of("1", "2", "3", "Q"));
+    if (classOption.equalsIgnoreCase("Q")) {
+      System.out.println("Не выбран класс. Данные не загружены");
+      return null;
+    }
+    loaderOption =
+        getValidInputOption(
+            "Выберите способ заполнения:\n"
+                + "1. Из файла;\n"
+                + "2. В интерактивном режиме;\n"
+                + "3. Случайным образом;\n"
+                + "Q. Выход\n",
+            Set.of("1", "2", "3", "Q"));
+    if (classOption.equalsIgnoreCase("q") || loaderOption.equalsIgnoreCase("q")) {
+      System.out.println("Не выбран способ загрузки. Данные не загружены");
+      return null;
+    }
+
+    return loaderMap.get(loaderOption).loadData(classMap.get(classOption));
+  }
 
   // Выводит приветствие и ждет выбора корректного значения
   static String getValidInputOption(String greeting, Set<String> validOptions) {
@@ -95,5 +97,16 @@ public class Main {
       inputString = scanner.nextLine();
     }
     return inputString;
+  }
+
+  // Выводит в консоль содержимое списка
+  static void printList(CustomList<? extends ThreeMemberClass> list) {
+    if (list == null) {
+      System.out.println("Список пуст");
+    } else {
+      for (var entry : list) {
+        System.out.println(entry);
+      }
+    }
   }
 }
