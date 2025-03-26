@@ -28,7 +28,7 @@ public class ConsoleDataLoader implements DataLoaderInterface {
         inputString = scanner.nextLine();
       }
 
-      System.out.printf("Введено %s корректных записей\n", result.size());
+      System.out.printf("Введено корректных записей %s\n", result.size());
       return result;
 
     } catch (Exception e) {
