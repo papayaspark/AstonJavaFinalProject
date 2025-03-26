@@ -23,7 +23,7 @@ public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
     return result;
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws NoSuchMethodException, NoSuchFieldException, IllegalAccessException {
     Bus[] bus = {
       new Bus("100, KurganAuto, 2000"),
       new Bus("2, Mercedes, 100"),
@@ -35,16 +35,25 @@ public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
       new Bus("100, Mercedes, 2001"),
       new Bus("100, KurganAuto, 2002")
     };
-    System.out.println(Arrays.toString(Bus.class.getDeclaredMethods()));
-
+//    System.out.println(Arrays.toString(Bus.class.getDeclaredMethods()));
+    Class<?> workingClass = Bus.class;
     ComparingStrategyBuilder<Bus> builder = new ComparingStrategyBuilder<>();
     builder
-        .addComparator(Bus.member1Comparator, true)
-        .addComparator(Bus.member2Comparator, false)
+        .addComparator((Comparator<Bus>) workingClass.getField("member1Comparator").get(null), false)
+        .addComparator(Bus.member2Comparator, true)
         .addComparator(Bus.member3Comparator, false);
     Comparator<Bus> comparator = builder.build();
 
     Arrays.sort(bus, comparator);
+//    ComparingStrategyBuilder<? extends ThreeMemberClass> builder = new ComparingStrategyBuilder<>();
+//    Class<? extends ThreeMemberClass> workingClass = Bus.class;
+//    try {
+//      Comparator<? extends ThreeMemberClass> comp = (Comparator<ThreeMemberClass>) workingClass.getField("member1Comparator").get(null);
+//      System.out.println(workingClass.getField("member1Comparator").get(null));
+//      Arrays.sort(bus, comp);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
 
     for (var b : bus) System.out.println(b);
   }
