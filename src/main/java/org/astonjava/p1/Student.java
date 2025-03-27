@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 public class Student extends ThreeMemberClass {
 
   static {
-    validationPattern = Pattern.compile("^\\d{1,6},\\s*\\d{1,3}[A-Za-z]?,\\s*[A-Za-z]{2}\\d{6}$");
+    validationPattern =
+        Pattern.compile("[A-Za-z]{2}\\d{6},\\s*\\d{1,3}[A-Za-z]?,\\s*[\\d\\.]{1,6}$");
   }
 
   public static Comparator<Student> member1Comparator =
@@ -86,9 +87,8 @@ public class Student extends ThreeMemberClass {
 
   @Override
   public String toString() {
-//    return "Student {Номер зачетки: %s, Группа: %s, Средний балл: %.1f}"
-    return "%s, %s, %.1f"
-    .formatted(recordBookNumber, groupNumber, averageGrade);
+    //    return "Student {Номер зачетки: %s, Группа: %s, Средний балл: %.1f}"
+    return "%s, %s, %.1f".formatted(recordBookNumber, groupNumber, averageGrade);
   }
 
   @Override
