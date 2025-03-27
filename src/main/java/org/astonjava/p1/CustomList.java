@@ -38,7 +38,7 @@ public class CustomList<T extends ThreeMemberClass> implements Iterable<T> {
 
   // TODO: заменить на свои алгоритмы
   public void sort(Comparator<? super T> comparator) {
-    Arrays.sort(elements, 0, size, comparator);
+    QuickSort.quickSort(elements, 0, size, comparator);
   }
 
   public int binarySearch(T key, Comparator<? super T> comparator) {
