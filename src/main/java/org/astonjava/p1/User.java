@@ -106,7 +106,7 @@ public class User extends ThreeMemberClass {
 
   @Override
   public String toString() {
-    return "User {Имя: %s, Почта: %s}".formatted(name, email);
+    return "User {Имя: %s, Пароль: %s. Почта: %s}".formatted(name, password, email);
   }
 
   @Override
