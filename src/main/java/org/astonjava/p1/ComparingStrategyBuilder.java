@@ -8,9 +8,15 @@ public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
 
   CustomList<Comparator<T>> comparators = new CustomList<>();
 
-  public ComparingStrategyBuilder<T> addComparator(Comparator<T> comparator, boolean reverse) {
-    if (reverse) comparators.add(comparator.reversed());
-    else comparators.add(comparator);
+//  // TODO: Убрать, если другой окажется ОК
+//  public ComparingStrategyBuilder<T> addComparator(Comparator<T> comparator, boolean reverse) {
+//    if (reverse) comparators.add(comparator.reversed());
+//    else comparators.add(comparator);
+//    return this;
+//  }
+
+  public ComparingStrategyBuilder<T> addComparator(Comparator<T> comparator) {
+    comparators.add(comparator);
     return this;
   }
 
@@ -36,13 +42,16 @@ public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
       new Bus("100, KurganAuto, 2002")
     };
 //    System.out.println(Arrays.toString(Bus.class.getDeclaredMethods()));
-    Class<?> workingClass = Bus.class;
-    ComparingStrategyBuilder<Bus> builder = new ComparingStrategyBuilder<>();
-    builder
-        .addComparator((Comparator<Bus>) workingClass.getField("member1Comparator").get(null), false)
-        .addComparator(Bus.member2Comparator, true)
-        .addComparator(Bus.member3Comparator, false);
-    Comparator<Bus> comparator = builder.build();
+//    Class<?> workingClass = Bus.class;
+//    ComparingStrategyBuilder<Bus> builder = new ComparingStrategyBuilder<>();
+//    builder
+//        .addComparator((Comparator<Bus>) workingClass.getField("member1Comparator").get(null), false)
+//        .addComparator(Bus.member2Comparator, true)
+//        .addComparator(Bus.member3Comparator, false);
+//    Comparator<Bus> comparator = builder.build();
+
+    String[] order = new String[]{"3", "-2", "-1"};
+    Comparator<Bus> comparator = Bus.createSortingStrategy(order);
 
     Arrays.sort(bus, comparator);
 //    ComparingStrategyBuilder<? extends ThreeMemberClass> builder = new ComparingStrategyBuilder<>();
