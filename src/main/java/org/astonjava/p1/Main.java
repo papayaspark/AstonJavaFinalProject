@@ -42,13 +42,19 @@ public class Main {
           // сортирует data типа Student
           break;
         case "2":
-          order = getSortingOrder(Bus.class);
           System.out.println();
-          sortingStrategy = null;
-          if (classOption.equals("1")) sortingStrategy = Bus.createSortingStrategy(order);
-          // TODO: раскомментировать при добавлении
-//          else if (classOption.equals("2")) sortingStrategy = User.createSortingStrategy(order);
-//          else sortingStrategy = Student.createSortingStrategy(order);
+          if (classOption.equals("1")) {
+            order = getSortingOrder(Bus.class);
+            sortingStrategy = Bus.createSortingStrategy(order);
+          }
+          else if (classOption.equals("2")) {
+            order = getSortingOrder(User.class);
+            sortingStrategy = User.createSortingStrategy(order);}
+          else  {
+            order = getSortingOrder(Student.class);
+            sortingStrategy = Student.createSortingStrategy(order);
+        }
+
           data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
 //          break;
           //        case "3":
