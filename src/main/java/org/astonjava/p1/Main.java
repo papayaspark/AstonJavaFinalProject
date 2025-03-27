@@ -6,10 +6,10 @@ public class Main {
 
   static Scanner scanner = new Scanner(System.in);
 
-  static CustomList<ThreeMemberClass> data = null;
+  static CustomList<? extends ThreeMemberClass> data = null;
   static Comparator<? extends ThreeMemberClass> sortingStrategy = null;
-  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
-  static Class<? extends ThreeMemberClass> workingClass = null;
+//  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
+//  static Class<? extends ThreeMemberClass> workingClass = null;
 
   static String classOption = null;
 
@@ -37,11 +37,18 @@ public class Main {
       switch (userInput) {
         case "1":
           data = selectAndLoadData();
+          // TODO: обнулять sortingStrategy при загрузке новых данных, чтобы избежать ситуации, когда стратегия для Bus
+          // сортирует data типа Student
           break;
         case "2":
           order = getSortingOrder(Bus.class);
           System.out.println();
-          break;
+          if (classOption.equals("1")) {
+            sortingStrategy = Bus.createSortingStrategy(order);
+          }
+
+          data.sort((Comparator<? super ThreeMemberClass>) sortingStrategy);
+//          break;
           //        case "3":
           //          System.out.println("Отсортированные данные");
           //          break;
@@ -89,13 +96,13 @@ public class Main {
       return null;
     }
 
-    switch (classOption) {
-      case "1": strategyBuilder = new ComparingStrategyBuilder<Bus>(); break;
-      case "2": strategyBuilder = new ComparingStrategyBuilder<User>(); break;
-      case "3": strategyBuilder = new ComparingStrategyBuilder<Student>(); break;
-    }
-
-    workingClass = classMap.get(classOption);
+//    switch (classOption) {
+//      case "1": strategyBuilder = new ComparingStrategyBuilder<Bus>(); break;
+//      case "2": strategyBuilder = new ComparingStrategyBuilder<User>(); break;
+//      case "3": strategyBuilder = new ComparingStrategyBuilder<Student>(); break;
+//    }
+//
+//    workingClass = classMap.get(classOption);
 
     return loaderMap.get(loaderOption).loadData(classMap.get(classOption));
   }
