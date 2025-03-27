@@ -1,5 +1,6 @@
 package org.astonjava.p1;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -10,6 +11,10 @@ public class Bus extends ThreeMemberClass {
     validationPattern = Pattern.compile("^\\d{1,4},[\\w\\s]+,\\s*\\d{1,6}$");
   }
 
+  public static Comparator<Bus> member1Comparator = Comparator.comparing(Bus::getMember1);
+  public static Comparator<Bus> member2Comparator = Comparator.comparing(Bus::getMember2);
+  public static Comparator<Bus> member3Comparator = Comparator.comparing(Bus::getMember3);
+
   public static String member1RuName = "Номер";
   public static String member2RuName = "Модель";
   public static String member3RuName = "Пробег";
@@ -17,6 +22,15 @@ public class Bus extends ThreeMemberClass {
   Integer member1;
   String member2;
   Integer member3;
+
+//   TODO: Сделать здесь создание стратегии?
+//    public static Comparator<Bus> buildStrategy(String[] sortingOrder) {
+//      if (sortingOrder == null)
+//        return null;
+//      do {
+//
+//      }
+//    }
 
   public Bus(Integer member1, String member2, Integer member3) {
     this.member1 = member1;
@@ -99,6 +113,25 @@ public class Bus extends ThreeMemberClass {
     this.member3 = member3;
   }
 
+  // "Билдит" кастомный компаратор
+  public static Comparator<Bus> createSortingStrategy(String[] sortingOrder) {
+    ComparingStrategyBuilder<Bus> builder = new ComparingStrategyBuilder<>();
+    Comparator<Bus> nextBlock = null;
+    for (String s: sortingOrder) {
+        nextBlock = switch (s) {
+            case "1" -> member1Comparator;
+            case "-1" -> member1Comparator.reversed();
+            case "2" -> member2Comparator;
+            case "-2" -> member2Comparator.reversed();
+            case "3" -> member3Comparator;
+            case "-3" -> member3Comparator.reversed();
+            default -> nextBlock;
+        };
+      builder.addComparator(nextBlock);
+    }
+    return builder.build();
+  }
+
   // TODO: Убрать после тестов
   public static void main(String[] args) {
     Bus bus = new Bus(1375, "KurganAuto", 45180);
@@ -115,4 +148,6 @@ public class Bus extends ThreeMemberClass {
     System.out.println("------------------------");
     System.out.println(new Bus("5167, Pantsu Maru Mie, 614577"));
   }
+
+
 }
