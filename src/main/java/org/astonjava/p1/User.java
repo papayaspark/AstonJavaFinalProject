@@ -1,5 +1,6 @@
 package org.astonjava.p1;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -11,6 +12,13 @@ public class User extends ThreeMemberClass {
         Pattern.compile(
             "^[A-Za-zА-Яа-яёЁ\\s-]{2,50},[\\w!@#$%^&*()_+-={}|;:'\",.<>?]{8,30},[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
   }
+
+  public static Comparator<User> member1Comparator =
+          Comparator.comparing(User::getName);
+  public static Comparator<User> member2Comparator =
+          Comparator.comparing(User::getPassword);
+  public static Comparator<User> member3Comparator =
+          Comparator.comparing(User::getEmail);
 
   public static String member1RuName = "Имя";
   public static String member2RuName = "Пароль";
@@ -140,6 +148,26 @@ public class User extends ThreeMemberClass {
     this.email = email;
   }
 
+  // "Билдит" кастомный компаратор
+  public static Comparator<User> createSortingStrategy(String[] sortingOrder) {
+    ComparingStrategyBuilder<User> builder = new ComparingStrategyBuilder<>();
+    Comparator<User> nextBlock = null;
+    for (String s : sortingOrder) {
+      nextBlock =
+              switch (s) {
+                case "1" -> member1Comparator;
+                case "-1" -> member1Comparator.reversed();
+                case "2" -> member2Comparator;
+                case "-2" -> member2Comparator.reversed();
+                case "3" -> member3Comparator;
+                case "-3" -> member3Comparator.reversed();
+                default -> nextBlock;
+              };
+      builder.addComparator(nextBlock);
+    }
+    return builder.build();
+  }
+
   public static void main(String[] args) {
     User user = new User("Иван Иванов", "Qwerty123!", "ivan@mail.ru");
     System.out.println(user);
@@ -159,3 +187,4 @@ public class User extends ThreeMemberClass {
     System.out.println(new User("Мария Сидорова, M@ry123, maria@gmail.com"));
   }
 }
+
