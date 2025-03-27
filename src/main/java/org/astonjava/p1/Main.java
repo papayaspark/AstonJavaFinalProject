@@ -5,14 +5,17 @@ import java.util.*;
 public class Main {
 
   static Scanner scanner = new Scanner(System.in);
-  static boolean failOnInvalid = true;
+
+  static CustomList<ThreeMemberClass> data = null;
+  static Comparator<? extends ThreeMemberClass> sortingStrategy = null;
+  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
+  static Class<? extends ThreeMemberClass> workingClass = null;
+
+  static String classOption = null;
 
   public static void main(String[] args) {
 
     System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.\n");
-
-    boolean dataLoaded = false;
-    CustomList<ThreeMemberClass> data = null;
 
     String[] order;
 
@@ -35,10 +38,10 @@ public class Main {
         case "1":
           data = selectAndLoadData();
           break;
-                  case "2":
-                    order = getSortingOrder(Bus.class);
+        case "2":
+          order = getSortingOrder(Bus.class);
           System.out.println();
-                    break;
+          break;
           //        case "3":
           //          System.out.println("Отсортированные данные");
           //          break;
@@ -51,7 +54,7 @@ public class Main {
       }
 
       printList(data);
-      System.out.println("Выход");
+      System.out.println();
     }
   }
 
@@ -64,7 +67,6 @@ public class Main {
             "1", new FileDataLoader(), "2", new ConsoleDataLoader(), "3", new RandomDataLoader());
 
     Scanner scanner = new Scanner(System.in);
-    String classOption = "";
     String loaderOption = "";
     classOption =
         getValidInputOption(
@@ -86,6 +88,14 @@ public class Main {
       System.out.println("Не выбран способ загрузки. Данные не загружены");
       return null;
     }
+
+    switch (classOption) {
+      case "1": strategyBuilder = new ComparingStrategyBuilder<Bus>(); break;
+      case "2": strategyBuilder = new ComparingStrategyBuilder<User>(); break;
+      case "3": strategyBuilder = new ComparingStrategyBuilder<Student>(); break;
+    }
+
+    workingClass = classMap.get(classOption);
 
     return loaderMap.get(loaderOption).loadData(classMap.get(classOption));
   }
@@ -109,9 +119,7 @@ public class Main {
               "-" + tmClass.getField("member3RuName").get(null));
 
       System.out.println(
-          "Введите желаемый порядок сортировки\n"
-              + "Формат: <наиболее приоритетное>, <с обычным приоритетом>, <наименее приоритетное>',\n"
-              + "-<поле> для сортировки по этому полю в порядке убывания.\n"
+          "Введите желаемый порядок сортировки (-<поле> для сортировки по этому полю в порядке убывания):\n"
               + "1. "
               + memberMap.get("1")
               + "\n"
@@ -122,28 +130,42 @@ public class Main {
               + memberMap.get("3")
               + "\n");
 
-      String first = getValidInputOption("Выберите наиболее приоритетное поле", Set.of("1", "-1", "2", "-2", "3", "-3"));
-      String second = getValidInputOption("Выберите поле с обычным приоритетом", Set.of("1", "-1", "2", "-2", "3", "-3"));
-      String third = getValidInputOption("Выберите наименее приоритетное поле", Set.of("1", "-1", "2", "-2", "3", "-3"));
+      String first =
+          getValidInputOption(
+              "Выберите наиболее приоритетное поле", Set.of("1", "-1", "2", "-2", "3", "-3"));
+      String second =
+          getValidInputOption(
+              "Выберите поле с обычным приоритетом", Set.of("1", "-1", "2", "-2", "3", "-3"));
+      String third =
+          getValidInputOption(
+              "Выберите наименее приоритетное поле", Set.of("1", "-1", "2", "-2", "3", "-3"));
 
-      System.out.printf("Выбранный порядок сортировки: [%s, %s, %s]\n", memberMap.get(first), memberMap.get(second), memberMap.get(third));
+      System.out.printf(
+          "Выбранный порядок сортировки: [%s, %s, %s]\n",
+          memberMap.get(first), memberMap.get(second), memberMap.get(third));
 
-      String[] result = new String[]{first, second, third};
+      String[] result = new String[] {first, second, third};
       System.out.println("RESULT: " + Arrays.toString(result));
 
       return result;
 
     } catch (Exception e) {
-      System.out.println("Ошибка в выборе порядка сортировки. Выбран порядок по умолчанию [1, 2, 3]");
-//      e.printStackTrace();
-      return new String[]{"1", "2", "3"};
+      System.out.println(
+          "Ошибка в выборе порядка сортировки. Выбран порядок по умолчанию [Поле_1, Поле_2, Поле_3]");
+      return new String[] {"1", "2", "3"};
     }
   }
 
-  public static String[] getSortingOrderHelper() {
-
-    return new String[0];
-  }
+//  // Строит стратегию сортировки
+//  public static void buildSortingStrategy(String[] sortingOrder) {
+//    System.out.println(Arrays.toString(workingClass.getDeclaredMethods()));
+//    try {
+//    strategyBuilder.addComparator(workingClass.getMethod("member%sComparator".formatted(sortingOrder[0])));
+//      } catch (NoSuchMethodException e) {
+//      System.out.println("Strategy build failed");;
+//      sortingStrategy = null;
+//    };
+//  }
 
   // Выводит приветствие и ждет выбора корректного значения
   static String getValidInputOption(String greeting, Set<String> validOptions) {
