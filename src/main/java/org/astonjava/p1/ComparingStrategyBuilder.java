@@ -2,11 +2,12 @@ package org.astonjava.p1;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 // Реализует паттерн Builder для сравнения элементов при сортировке
 public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
 
-  CustomList<Comparator<T>> comparators = new CustomList<>();
+  LinkedList<Comparator<T>> comparators = new LinkedList<>();
 
 //  // TODO: Убрать, если другой окажется ОК
 //  public ComparingStrategyBuilder<T> addComparator(Comparator<T> comparator, boolean reverse) {
