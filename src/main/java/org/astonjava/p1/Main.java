@@ -13,6 +13,7 @@ public class Main {
 
   static String classOption = null;
 
+  @SuppressWarnings("unchecked")
   public static void main(String[] args) {
 
     System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.\n");
@@ -43,11 +44,12 @@ public class Main {
         case "2":
           order = getSortingOrder(Bus.class);
           System.out.println();
-          if (classOption.equals("1")) {
-            sortingStrategy = Bus.createSortingStrategy(order);
-          }
-
-          data.sort((Comparator<? super ThreeMemberClass>) sortingStrategy);
+          sortingStrategy = null;
+          if (classOption.equals("1")) sortingStrategy = Bus.createSortingStrategy(order);
+          // TODO: раскомментировать при добавлении
+//          else if (classOption.equals("2")) sortingStrategy = User.createSortingStrategy(order);
+//          else sortingStrategy = Student.createSortingStrategy(order);
+          data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
 //          break;
           //        case "3":
           //          System.out.println("Отсортированные данные");
