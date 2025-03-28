@@ -19,7 +19,7 @@ public class Main {
   @SuppressWarnings("unchecked")
   public static void main(String[] args) {
 
-    System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.\n");
+    System.out.println("AstonJavaFinalProject 1.0 by Gang of Five, Inc.");
 
     String[] order;
 
@@ -29,23 +29,20 @@ public class Main {
 
       userInput =
           getValidInputOption(
-              "Выберите действие:\n"
+              "\nВыберите действие:\n"
                   + "1. Загрузка данных;\n"
                   + "2. Выбор способа сортировки;\n"
                   + "3. Сортировка данных;\n"
                   + "4. Поиск по данным;\n"
-                  + "5. Запись данные в файл;\n"
-                  + "Q. Выход.\n",
-              Set.of("1", "2", "3", "4", "5", "Q"));
+                  + "5. Вывод данных в консоль;\n"
+                  + "Q. Выход.",
+              Set.of("1", "2", "3", "4", "5", "Q", "q"));
 
       switch (userInput) {
         case "1":
           data = selectAndLoadData();
           sortingStrategy = null;
           sorted = false;
-          // TODO: обнулять sortingStrategy при загрузке новых данных, чтобы избежать ситуации,
-          // когда стратегия для Bus
-          // сортирует data типа Student
           break;
         case "2":
           System.out.println();
@@ -68,7 +65,7 @@ public class Main {
             System.out.println("Не выбрана стратегия сортировки");
             break;
           } else {
-            System.out.println("Отсортированные данные");
+            System.out.println("%nОтсортированные данные");
             data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
             sorted = true;
             printList(data);
@@ -77,7 +74,7 @@ public class Main {
           System.out.println();
           break;
         case "4":
-          System.out.println("Поиск по данным");
+          System.out.println("%nПоиск по данным");
           if (data == null) {
             System.out.println("Данные не загружены");
             break;
@@ -108,9 +105,13 @@ public class Main {
             }
           }
           break;
+        case "5":
+          System.out.println("%nСодержимое data:");
+          printList(data);
+          break;
         case "q":
         case "Q":
-          System.out.println("Выход");
+          System.out.println("%nВыход");
           break;
       }
     }
@@ -127,7 +128,7 @@ public class Main {
     String loaderOption = "";
     classOption =
         getValidInputOption(
-            "Выберите класс:\n" + "1. Bus\n" + "2. User\n" + "3. Student\n" + "Q. Выход\n",
+            "\nВыберите класс:\n" + "1. Bus\n" + "2. User\n" + "3. Student\n" + "Q. Выход",
             Set.of("1", "2", "3", "Q"));
     if (classOption.equalsIgnoreCase("Q")) {
       System.out.println("Не выбран класс. Данные не загружены");
@@ -135,11 +136,11 @@ public class Main {
     }
     loaderOption =
         getValidInputOption(
-            "Выберите способ заполнения:\n"
+            "\nВыберите способ заполнения:\n"
                 + "1. Из файла;\n"
                 + "2. В интерактивном режиме;\n"
                 + "3. Случайным образом;\n"
-                + "Q. Выход\n",
+                + "Q. Выход",
             Set.of("1", "2", "3", "Q"));
     if (classOption.equalsIgnoreCase("q") || loaderOption.equalsIgnoreCase("q")) {
       System.out.println("Не выбран способ загрузки. Данные не загружены");
@@ -176,7 +177,7 @@ public class Main {
               "-" + tmClass.getField("member3RuName").get(null));
 
       System.out.println(
-          "Введите желаемый порядок сортировки (-<поле> для сортировки по этому полю в порядке убывания):\n"
+          "\nВведите желаемый порядок сортировки (-<поле> для сортировки по этому полю в порядке убывания):\n"
               + "1. "
               + memberMap.get("1")
               + "\n"
