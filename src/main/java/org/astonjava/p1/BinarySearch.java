@@ -3,6 +3,7 @@ package org.astonjava.p1;
 import java.util.Arrays;
 import java.util.Comparator;
 
+// Реализует бинарный поиск
 public class BinarySearch {
   public static <T> int search(
       T[] sortedArray, T key, int low, int high, Comparator<T> comparator) {
@@ -22,6 +23,7 @@ public class BinarySearch {
     return -1;
   }
 
+  // Для тестов
   public static void main(String[] args) {
 
     Integer[] array = new Integer[] {48, 76, 30, 50, 34, 48, 69, 72, 59, 47};
