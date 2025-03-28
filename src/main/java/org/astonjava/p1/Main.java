@@ -207,9 +207,12 @@ public class Main {
     if (list == null) {
       System.out.println("Список пуст");
     } else {
-      for (var entry : list) {
-        System.out.println(entry);
+      for (int i = 0; i < list.size(); i++) {
+        System.out.printf("%d. %s%n", i + 1, list.get(i));
       }
+//      for (var entry : list) {
+//        System.out.println(entry);
+//      }
     }
   }
 }
