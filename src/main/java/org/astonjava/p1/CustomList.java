@@ -42,7 +42,7 @@ public class CustomList<T extends ThreeMemberClass> implements Iterable<T> {
   }
 
   public int binarySearch(T key, Comparator<? super T> comparator) {
-    return Arrays.binarySearch(elements, 0, size, key, comparator);
+    return BinarySearch.search(elements, key, 0, size - 1, comparator);
   }
 
   private void ensureCapacity() {
