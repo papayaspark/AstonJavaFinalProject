@@ -11,8 +11,6 @@ public class Main {
   static boolean sorted = false;
   static Map<String, Class<? extends ThreeMemberClass>> classMap =
       Map.of("1", Bus.class, "2", User.class, "3", Student.class);
-  //  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
-  //  static Class<? extends ThreeMemberClass> workingClass = null;
 
   static String classOption = null;
 
@@ -147,14 +145,6 @@ public class Main {
       return null;
     }
 
-    //    switch (classOption) {
-    //      case "1": strategyBuilder = new ComparingStrategyBuilder<Bus>(); break;
-    //      case "2": strategyBuilder = new ComparingStrategyBuilder<User>(); break;
-    //      case "3": strategyBuilder = new ComparingStrategyBuilder<Student>(); break;
-    //    }
-    //
-    //    workingClass = classMap.get(classOption);
-
     return loaderMap.get(loaderOption).loadData(classMap.get(classOption));
   }
 
@@ -203,7 +193,6 @@ public class Main {
           memberMap.get(first), memberMap.get(second), memberMap.get(third));
 
       String[] result = new String[] {first, second, third};
-//      System.out.println("RESULT: " + Arrays.toString(result));
 
       return result;
 
@@ -213,18 +202,6 @@ public class Main {
       return new String[] {"1", "2", "3"};
     }
   }
-
-  //  // Строит стратегию сортировки
-  //  public static void buildSortingStrategy(String[] sortingOrder) {
-  //    System.out.println(Arrays.toString(workingClass.getDeclaredMethods()));
-  //    try {
-  //
-  // strategyBuilder.addComparator(workingClass.getMethod("member%sComparator".formatted(sortingOrder[0])));
-  //      } catch (NoSuchMethodException e) {
-  //      System.out.println("Strategy build failed");;
-  //      sortingStrategy = null;
-  //    };
-  //  }
 
   // Выводит приветствие и ждет выбора корректного значения
   static String getValidInputOption(String greeting, Set<String> validOptions) {
@@ -245,9 +222,6 @@ public class Main {
       for (int i = 0; i < list.size(); i++) {
         System.out.printf("%d. %s%n", i + 1, list.get(i));
       }
-      //      for (var entry : list) {
-      //        System.out.println(entry);
-      //      }
     }
   }
 }
