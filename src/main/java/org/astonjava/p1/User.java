@@ -10,7 +10,7 @@ public class User extends ThreeMemberClass {
   static {
     validationPattern =
         Pattern.compile(
-            "^[A-Za-zА-Яа-яёЁ\\s-]{2,50},[\\w!@#$%^&*()_+-={}|;:'\",.<>?]{8,30},[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
+            "^[A-Za-zА-Яа-яёЁ\\s-]{2,50},\\s*[\\w!@#$%^&*()_+-={}|;:'\",.<>?]{8,30},\\s*[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
   }
 
   public static Comparator<User> member1Comparator =
@@ -106,7 +106,7 @@ public class User extends ThreeMemberClass {
 
   @Override
   public String toString() {
-    return "User {Имя: %s, Пароль: %s. Почта: %s}".formatted(name, password, email);
+    return "User {%s, %s, %s}".formatted(name, password, email);
   }
 
   @Override
