@@ -50,16 +50,25 @@ public class Main {
           else if (classOption.equals("2")) {
             order = getSortingOrder(User.class);
             sortingStrategy = User.createSortingStrategy(order);}
-          else  {
+          else if (classOption.equals("3"))  {
             order = getSortingOrder(Student.class);
             sortingStrategy = Student.createSortingStrategy(order);
-        }
+          }
+          break;
+        case "3":
+          if (data == null) {
+            System.out.println("Данные не загружены");
+            break;
+          }
+          else if (sortingStrategy == null) {
+            System.out.println("Не выбрана стратегия сортировки");
+            break;
+          } else {
+            System.out.println("Отсортированные данные");
+            data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
+          }
 
-          data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
-//          break;
-          //        case "3":
-          //          System.out.println("Отсортированные данные");
-          //          break;
+          break;
           //        case "4":
           //          System.out.println("Поиск по данным");
           //          break;
