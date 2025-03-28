@@ -9,6 +9,8 @@ public class Main {
   static CustomList<? extends ThreeMemberClass> data = null;
   static Comparator<? extends ThreeMemberClass> sortingStrategy = null;
   static boolean sorted = false;
+  static Map<String, Class<? extends ThreeMemberClass>> classMap =
+      Map.of("1", Bus.class, "2", User.class, "3", Student.class);
   //  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
   //  static Class<? extends ThreeMemberClass> workingClass = null;
 
@@ -74,15 +76,16 @@ public class Main {
           }
           System.out.println();
           break;
-//                  case "4":
-//                    System.out.println("Поиск по данным");
-//                    if (data == null) {
-//                      System.out.println("Данные не загружены");
-//                      break;
-//                    } else if (!sorted) {
-//                      System.out.println("Данные не отсортированы");
-//                    }
-//                    break;
+        case "4":
+          System.out.println("Поиск по данным");
+          if (data == null) {
+            System.out.println("Данные не загружены");
+            break;
+          } else if (!sorted) {
+            System.out.println("Данные не отсортированы");
+          }
+
+          break;
           //        case "5":
           //          System.out.println("Запись в файл");
           //          break;
@@ -95,8 +98,7 @@ public class Main {
 
   // Загружает данные с использованием паттерна Стратегия
   static CustomList<ThreeMemberClass> selectAndLoadData() {
-    Map<String, Class<? extends ThreeMemberClass>> classMap =
-        Map.of("1", Bus.class, "2", User.class, "3", Student.class);
+
     Map<String, DataLoaderInterface> loaderMap =
         Map.of(
             "1", new FileDataLoader(), "2", new ConsoleDataLoader(), "3", new RandomDataLoader());
