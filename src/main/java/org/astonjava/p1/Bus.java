@@ -60,7 +60,7 @@ public class Bus extends ThreeMemberClass {
       "GMC Savana",
       "Honda Odyssey",
       "Mercedes-Benz Sprinter",
-      "Ram C/V Tradesman",
+      "Ram CV Tradesman",
       "Ram Promaster",
       "Toyota Sienna",
       "Volkswagen California"
