@@ -51,7 +51,7 @@ public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
 //        .addComparator(Bus.member3Comparator, false);
 //    Comparator<Bus> comparator = builder.build();
 
-    String[] order = new String[]{"3", "-2", "-1"};
+    String[] order = new String[]{"1", "-2", "3"};
     Comparator<Bus> comparator = Bus.createSortingStrategy(order);
 
     Arrays.sort(bus, comparator);
