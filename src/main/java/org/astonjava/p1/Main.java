@@ -6,7 +6,7 @@ public class Main {
 
   static Scanner scanner = new Scanner(System.in);
 
-  static CustomList<? extends ThreeMemberClass> data = null;
+  static CustomList<ThreeMemberClass> data = null;
   static Comparator<? extends ThreeMemberClass> sortingStrategy = null;
   static boolean sorted = false;
   static Map<String, Class<? extends ThreeMemberClass>> classMap =
@@ -83,16 +83,36 @@ public class Main {
             break;
           } else if (!sorted) {
             System.out.println("Данные не отсортированы");
+            break;
           }
+          ThreeMemberClass key;
+          try {
+            System.out.printf(
+                "Введите данные в следующем формате '%s, %s, %s':%n",
+                classMap.get(classOption).getField("member1RuName").get(null),
+                classMap.get(classOption).getField("member2RuName").get(null),
+                classMap.get(classOption).getField("member3RuName").get(null));
+            key = ConsoleDataLoader.checkAndCreate(classMap.get(classOption), scanner.nextLine());
+          } catch (Exception e) {
+            key = null;
+          }
+          if (key == null) {
+            System.out.println("Неверный формат записи");
+          } else {
 
+            int position = data.binarySearch(key, (Comparator<ThreeMemberClass>) sortingStrategy);
+            if (position == -1) {
+              System.out.println("Запись не найдена");
+            } else {
+              System.out.printf("Позиция искомой записи: %d%n", position + 1);
+            }
+          }
           break;
-          //        case "5":
-          //          System.out.println("Запись в файл");
-          //          break;
+        case "q":
+        case "Q":
+          System.out.println("Выход");
+          break;
       }
-
-      //      printList(data);
-      //      System.out.println();
     }
   }
 
@@ -182,7 +202,7 @@ public class Main {
           memberMap.get(first), memberMap.get(second), memberMap.get(third));
 
       String[] result = new String[] {first, second, third};
-      System.out.println("RESULT: " + Arrays.toString(result));
+//      System.out.println("RESULT: " + Arrays.toString(result));
 
       return result;
 
