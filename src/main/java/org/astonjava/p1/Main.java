@@ -8,8 +8,9 @@ public class Main {
 
   static CustomList<? extends ThreeMemberClass> data = null;
   static Comparator<? extends ThreeMemberClass> sortingStrategy = null;
-//  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
-//  static Class<? extends ThreeMemberClass> workingClass = null;
+  static boolean sorted = false;
+  //  static ComparingStrategyBuilder<? extends ThreeMemberClass> strategyBuilder = null;
+  //  static Class<? extends ThreeMemberClass> workingClass = null;
 
   static String classOption = null;
 
@@ -38,7 +39,10 @@ public class Main {
       switch (userInput) {
         case "1":
           data = selectAndLoadData();
-          // TODO: обнулять sortingStrategy при загрузке новых данных, чтобы избежать ситуации, когда стратегия для Bus
+          sortingStrategy = null;
+          sorted = false;
+          // TODO: обнулять sortingStrategy при загрузке новых данных, чтобы избежать ситуации,
+          // когда стратегия для Bus
           // сортирует data типа Student
           break;
         case "2":
@@ -46,11 +50,10 @@ public class Main {
           if (classOption.equals("1")) {
             order = getSortingOrder(Bus.class);
             sortingStrategy = Bus.createSortingStrategy(order);
-          }
-          else if (classOption.equals("2")) {
+          } else if (classOption.equals("2")) {
             order = getSortingOrder(User.class);
-            sortingStrategy = User.createSortingStrategy(order);}
-          else if (classOption.equals("3"))  {
+            sortingStrategy = User.createSortingStrategy(order);
+          } else if (classOption.equals("3")) {
             order = getSortingOrder(Student.class);
             sortingStrategy = Student.createSortingStrategy(order);
           }
@@ -59,26 +62,34 @@ public class Main {
           if (data == null) {
             System.out.println("Данные не загружены");
             break;
-          }
-          else if (sortingStrategy == null) {
+          } else if (sortingStrategy == null) {
             System.out.println("Не выбрана стратегия сортировки");
             break;
           } else {
             System.out.println("Отсортированные данные");
             data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
+            sorted = true;
+            printList(data);
+            System.out.println();
           }
-
+          System.out.println();
           break;
-          //        case "4":
-          //          System.out.println("Поиск по данным");
-          //          break;
+//                  case "4":
+//                    System.out.println("Поиск по данным");
+//                    if (data == null) {
+//                      System.out.println("Данные не загружены");
+//                      break;
+//                    } else if (!sorted) {
+//                      System.out.println("Данные не отсортированы");
+//                    }
+//                    break;
           //        case "5":
           //          System.out.println("Запись в файл");
           //          break;
       }
 
-      printList(data);
-      System.out.println();
+      //      printList(data);
+      //      System.out.println();
     }
   }
 
@@ -113,13 +124,13 @@ public class Main {
       return null;
     }
 
-//    switch (classOption) {
-//      case "1": strategyBuilder = new ComparingStrategyBuilder<Bus>(); break;
-//      case "2": strategyBuilder = new ComparingStrategyBuilder<User>(); break;
-//      case "3": strategyBuilder = new ComparingStrategyBuilder<Student>(); break;
-//    }
-//
-//    workingClass = classMap.get(classOption);
+    //    switch (classOption) {
+    //      case "1": strategyBuilder = new ComparingStrategyBuilder<Bus>(); break;
+    //      case "2": strategyBuilder = new ComparingStrategyBuilder<User>(); break;
+    //      case "3": strategyBuilder = new ComparingStrategyBuilder<Student>(); break;
+    //    }
+    //
+    //    workingClass = classMap.get(classOption);
 
     return loaderMap.get(loaderOption).loadData(classMap.get(classOption));
   }
@@ -180,16 +191,17 @@ public class Main {
     }
   }
 
-//  // Строит стратегию сортировки
-//  public static void buildSortingStrategy(String[] sortingOrder) {
-//    System.out.println(Arrays.toString(workingClass.getDeclaredMethods()));
-//    try {
-//    strategyBuilder.addComparator(workingClass.getMethod("member%sComparator".formatted(sortingOrder[0])));
-//      } catch (NoSuchMethodException e) {
-//      System.out.println("Strategy build failed");;
-//      sortingStrategy = null;
-//    };
-//  }
+  //  // Строит стратегию сортировки
+  //  public static void buildSortingStrategy(String[] sortingOrder) {
+  //    System.out.println(Arrays.toString(workingClass.getDeclaredMethods()));
+  //    try {
+  //
+  // strategyBuilder.addComparator(workingClass.getMethod("member%sComparator".formatted(sortingOrder[0])));
+  //      } catch (NoSuchMethodException e) {
+  //      System.out.println("Strategy build failed");;
+  //      sortingStrategy = null;
+  //    };
+  //  }
 
   // Выводит приветствие и ждет выбора корректного значения
   static String getValidInputOption(String greeting, Set<String> validOptions) {
@@ -210,9 +222,9 @@ public class Main {
       for (int i = 0; i < list.size(); i++) {
         System.out.printf("%d. %s%n", i + 1, list.get(i));
       }
-//      for (var entry : list) {
-//        System.out.println(entry);
-//      }
+      //      for (var entry : list) {
+      //        System.out.println(entry);
+      //      }
     }
   }
 }
