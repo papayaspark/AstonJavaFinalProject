@@ -1,4 +1,6 @@
-package org.astonjava.p1;
+package org.astonjava.p1.entities;
+
+import org.astonjava.p1.strategy.ComparingStrategyBuilder;
 
 import java.util.Comparator;
 import java.util.Objects;

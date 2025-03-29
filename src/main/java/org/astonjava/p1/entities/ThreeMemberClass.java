@@ -1,4 +1,4 @@
-package org.astonjava.p1;
+package org.astonjava.p1.entities;
 
 // Общий абстрактный класс для трех классов. Может измениться по ходу проекта.
 

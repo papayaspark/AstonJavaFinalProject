@@ -1,4 +1,8 @@
-package org.astonjava.p1;
+package org.astonjava.p1.loaders;
+
+import org.astonjava.p1.collections.CustomList;
+import org.astonjava.p1.entities.Bus;
+import org.astonjava.p1.entities.ThreeMemberClass;
 
 import java.lang.reflect.Constructor;
 import java.util.Scanner;

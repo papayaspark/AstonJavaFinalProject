@@ -1,4 +1,4 @@
-package org.astonjava.p1;
+package org.astonjava.p1.algorithms;
 
 import java.util.Arrays;
 import java.util.Comparator;
