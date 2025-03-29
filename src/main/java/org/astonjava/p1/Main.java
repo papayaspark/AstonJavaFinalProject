@@ -73,7 +73,7 @@ public class Main {
             System.out.println("Не выбрана стратегия сортировки");
             break;
           } else {
-            System.out.println("%nОтсортированные данные");
+            System.out.println("\nОтсортированные данные");
             data.sort((Comparator<ThreeMemberClass>) sortingStrategy);
             sorted = true;
             printList(data);
@@ -82,7 +82,7 @@ public class Main {
           System.out.println();
           break;
         case "4":
-          System.out.println("%nПоиск по данным");
+          System.out.println("\nПоиск по данным");
           if (data == null) {
             System.out.println("Данные не загружены");
             break;
@@ -114,12 +114,12 @@ public class Main {
           }
           break;
         case "5":
-          System.out.println("%nСодержимое data:");
+          System.out.println("\nСодержимое data:");
           printList(data);
           break;
         case "q":
         case "Q":
-          System.out.println("%nВыход");
+          System.out.println("\nВыход");
           break;
       }
     }
