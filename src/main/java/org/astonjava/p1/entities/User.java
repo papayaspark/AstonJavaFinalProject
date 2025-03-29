@@ -165,7 +165,7 @@ public class User extends ThreeMemberClass {
                 case "-3" -> member3Comparator.reversed();
                 default -> nextBlock;
               };
-      builder.addComparator(nextBlock);
+      builder = builder.addComparator(nextBlock);
     }
     return builder.build();
   }

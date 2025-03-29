@@ -147,7 +147,7 @@ public class Student extends ThreeMemberClass {
             case "-3" -> member3Comparator.reversed();
             default -> nextBlock;
           };
-      builder.addComparator(nextBlock);
+      builder = builder.addComparator(nextBlock);
     }
     return builder.build();
   }
