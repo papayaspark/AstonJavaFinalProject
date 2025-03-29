@@ -1,19 +1,16 @@
 package org.astonjava.p1.strategy;
 
-import org.astonjava.p1.entities.ThreeMemberClass;
-
 import java.util.Comparator;
 
-public class ComparingStrategy<T> implements Comparator<T>{
+public class ComparingStrategy<T> implements Comparator<T> {
 
-    Comparator<T> comparator = null;
+  Comparator<T> comparator;
 
-    ComparingStrategy(Comparator<T> comparator) {
-        this.comparator = comparator;
-    }
+  ComparingStrategy(Comparator<T> comparator) {
+    this.comparator = comparator;
+  }
 
-    public int compare(T o1, T o2) {
-        return comparator.compare(o1, o2);
-    }
-
+  public int compare(T o1, T o2) {
+    return comparator.compare(o1, o2);
+  }
 }
