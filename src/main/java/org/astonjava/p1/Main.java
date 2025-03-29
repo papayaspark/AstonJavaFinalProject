@@ -37,13 +37,15 @@ public class Main {
 
       userInput =
           getValidInputOption(
-              "\nВыберите действие:\n"
-                  + "1. Загрузка данных;\n"
-                  + "2. Выбор способа сортировки;\n"
-                  + "3. Сортировка данных;\n"
-                  + "4. Поиск по данным;\n"
-                  + "5. Вывод данных в консоль;\n"
-                  + "Q. Выход.",
+              """
+
+                          Выберите действие:
+                          1. Загрузка данных;
+                          2. Выбор способа сортировки;
+                          3. Сортировка данных;
+                          4. Поиск по данным;
+                          5. Вывод данных в консоль;
+                          Q. Выход.""",
               Set.of("1", "2", "3", "4", "5", "Q", "q"));
 
       switch (userInput) {
@@ -54,15 +56,19 @@ public class Main {
           break;
         case "2":
           System.out.println();
-          if (classOption.equals("1")) {
-            order = getSortingOrder(Bus.class);
-            sortingStrategy = Bus.createSortingStrategy(order);
-          } else if (classOption.equals("2")) {
-            order = getSortingOrder(User.class);
-            sortingStrategy = User.createSortingStrategy(order);
-          } else if (classOption.equals("3")) {
-            order = getSortingOrder(Student.class);
-            sortingStrategy = Student.createSortingStrategy(order);
+          switch (classOption) {
+            case "1" -> {
+              order = getSortingOrder(Bus.class);
+              sortingStrategy = Bus.createSortingStrategy(order);
+            }
+            case "2" -> {
+              order = getSortingOrder(User.class);
+              sortingStrategy = User.createSortingStrategy(order);
+            }
+            case "3" -> {
+              order = getSortingOrder(Student.class);
+              sortingStrategy = Student.createSortingStrategy(order);
+            }
           }
           break;
         case "3":
@@ -132,11 +138,16 @@ public class Main {
         Map.of(
             "1", new FileDataLoader(), "2", new ConsoleDataLoader(), "3", new RandomDataLoader());
 
-    Scanner scanner = new Scanner(System.in);
-    String loaderOption = "";
+    String loaderOption;
     classOption =
         getValidInputOption(
-            "\nВыберите класс:\n" + "1. Bus\n" + "2. User\n" + "3. Student\n" + "Q. Выход",
+            """
+
+                        Выберите класс:
+                        1. Bus
+                        2. User
+                        3. Student
+                        Q. Выход""",
             Set.of("1", "2", "3", "Q"));
     if (classOption.equalsIgnoreCase("Q")) {
       System.out.println("Не выбран класс. Данные не загружены");
@@ -144,11 +155,13 @@ public class Main {
     }
     loaderOption =
         getValidInputOption(
-            "\nВыберите способ заполнения:\n"
-                + "1. Из файла;\n"
-                + "2. В интерактивном режиме;\n"
-                + "3. Случайным образом;\n"
-                + "Q. Выход",
+            """
+
+                        Выберите способ заполнения:
+                        1. Из файла;
+                        2. В интерактивном режиме;
+                        3. Случайным образом;
+                        Q. Выход""",
             Set.of("1", "2", "3", "Q"));
     if (classOption.equalsIgnoreCase("q") || loaderOption.equalsIgnoreCase("q")) {
       System.out.println("Не выбран способ загрузки. Данные не загружены");
@@ -202,9 +215,7 @@ public class Main {
           "Выбранный порядок сортировки: [%s, %s, %s]\n",
           memberMap.get(first), memberMap.get(second), memberMap.get(third));
 
-      String[] result = new String[] {first, second, third};
-
-      return result;
+      return new String[] {first, second, third};
 
     } catch (Exception e) {
       System.out.println(

@@ -2,7 +2,6 @@ package org.astonjava.p1.entities;
 
 // Общий абстрактный класс для трех классов. Может измениться по ходу проекта.
 
-import java.util.Comparator;
 import java.util.regex.Pattern;
 
 public abstract class ThreeMemberClass {

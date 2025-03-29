@@ -21,6 +21,6 @@ public class ComparingStrategyBuilder<T extends ThreeMemberClass> {
     for (int i = 1; i < comparators.size(); i++) {
       result = result.thenComparing(comparators.get(i));
     }
-    return new ComparingStrategy<T>(result);
+    return new ComparingStrategy<>(result);
   }
 }

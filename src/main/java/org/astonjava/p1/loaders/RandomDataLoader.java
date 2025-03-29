@@ -1,7 +1,6 @@
 package org.astonjava.p1.loaders;
 
 import org.astonjava.p1.collections.CustomList;
-import org.astonjava.p1.entities.Bus;
 import org.astonjava.p1.entities.ThreeMemberClass;
 
 import java.lang.reflect.Constructor;
@@ -29,21 +28,6 @@ public class RandomDataLoader implements DataLoaderInterface {
 
     } catch (Exception e) {
       return null;
-    }
-  }
-
-  // TODO: Убрать после тестов
-  public static void main(String[] args) {
-    RandomDataLoader randomDataLoader = new RandomDataLoader();
-
-    CustomList<ThreeMemberClass> result = randomDataLoader.loadData(Bus.class);
-
-    if (result != null) {
-      for (var d : result) {
-        System.out.println(d);
-      }
-    } else {
-      System.out.println(result);
     }
   }
 }

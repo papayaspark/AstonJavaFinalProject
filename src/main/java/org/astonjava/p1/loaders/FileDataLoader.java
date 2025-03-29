@@ -1,7 +1,6 @@
 package org.astonjava.p1.loaders;
 
 import org.astonjava.p1.collections.CustomList;
-import org.astonjava.p1.entities.Bus;
 import org.astonjava.p1.entities.ThreeMemberClass;
 
 import java.io.IOException;
@@ -56,7 +55,8 @@ public class FileDataLoader implements DataLoaderInterface {
       Class<? extends ThreeMemberClass> tmclass, String dataString) {
     try {
       Class<?>[] constructorArgs = new Class[] {String.class};
-      Constructor<? extends ThreeMemberClass> tmConstructor = tmclass.getDeclaredConstructor(constructorArgs);
+      Constructor<? extends ThreeMemberClass> tmConstructor =
+          tmclass.getDeclaredConstructor(constructorArgs);
       Method tmValidator = tmclass.getMethod("validateString", String.class);
       tmConstructor.newInstance("1, JOJO, 1"); // MAGIC STRING!!!
 
@@ -69,14 +69,4 @@ public class FileDataLoader implements DataLoaderInterface {
     }
     return null;
   }
-
-    public static void main(String[] args) {
-//      System.out.println("Result: " + checkAndCreate(Bus.class, "120hgfg6, Chevrolet Express, 58325"));
-//      System.out.println("Result: " + checkAndCreate(Bus.class, "60, Buick Terraza,"));
-      FileDataLoader loader = new FileDataLoader();
-      CustomList<ThreeMemberClass> data = loader.loadData(Bus.class);
-      for (var d : data) {
-        System.out.println(d);
-      }
-    }
 }

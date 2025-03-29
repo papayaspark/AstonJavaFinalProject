@@ -63,7 +63,7 @@ public class CustomList<T extends ThreeMemberClass> implements Iterable<T> {
 
   @Override
   public java.util.Iterator<T> iterator() {
-    return new java.util.Iterator<T>() {
+    return new java.util.Iterator<>() {
       private int currentIndex = 0;
 
       @Override

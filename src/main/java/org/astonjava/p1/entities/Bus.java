@@ -25,15 +25,6 @@ public class Bus extends ThreeMemberClass {
   String member2;
   Integer member3;
 
-//   TODO: Сделать здесь создание стратегии?
-//    public static Comparator<Bus> buildStrategy(String[] sortingOrder) {
-//      if (sortingOrder == null)
-//        return null;
-//      do {
-//
-//      }
-//    }
-
   public Bus(Integer member1, String member2, Integer member3) {
     this.member1 = member1;
     this.member2 = member2;
@@ -119,8 +110,9 @@ public class Bus extends ThreeMemberClass {
   public static Comparator<Bus> createSortingStrategy(String[] sortingOrder) {
     ComparingStrategyBuilder<Bus> builder = new ComparingStrategyBuilder<>();
     Comparator<Bus> nextBlock = null;
-    for (String s: sortingOrder) {
-        nextBlock = switch (s) {
+    for (String s : sortingOrder) {
+      nextBlock =
+          switch (s) {
             case "1" -> member1Comparator;
             case "-1" -> member1Comparator.reversed();
             case "2" -> member2Comparator;
@@ -128,28 +120,9 @@ public class Bus extends ThreeMemberClass {
             case "3" -> member3Comparator;
             case "-3" -> member3Comparator.reversed();
             default -> nextBlock;
-        };
+          };
       builder = builder.addComparator(nextBlock);
     }
     return builder.build();
   }
-
-  // TODO: Убрать после тестов
-  public static void main(String[] args) {
-    Bus bus = new Bus(1375, "KurganAuto", 45180);
-    System.out.println(bus);
-    System.out.println(Bus.validateString("1287, Sports1343_eire, 897777"));
-    System.out.println(Bus.validateString("12kuy6.06, 9, 897777"));
-    Bus bus2 = new Bus();
-    System.out.println(bus2);
-    System.out.println("------");
-    for (int i = 0; i < 15; i++) {
-      System.out.println(new Bus());
-    }
-
-    System.out.println("------------------------");
-    System.out.println(new Bus("5167, Pantsu Maru Mie, 614577"));
-  }
-
-
 }
